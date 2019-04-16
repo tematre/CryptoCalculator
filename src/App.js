@@ -1,26 +1,106 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { Calculator } from './components/calculator/Calculator.js'
+import { 
+  Container, 
+  Row, 
+  Col,  
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  Jumbotron,
+  TabContent,
+  Collapse,
+  TabPane
+} from 'reactstrap';
+import classnames from 'classnames';
 
 class App extends Component {
+  
+  constructor(props) {
+    super(props);
+
+    this.toggleMenu = this.toggleMenu.bind(this);
+    this.state = {
+      isOpen: false,
+      activeTab: '1'
+    };
+
+    this.toggleActiveTab = this.toggleActiveTab.bind(this);
+  }
+
+  toggleMenu() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+
+  toggleActiveTab(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab,
+        isOpen: false
+      });
+    }
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <React.Fragment>
+        <Navbar color="light" light expand="md">
+          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <NavbarToggler onClick={this.toggleMenu} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="#" onClick={() => { this.toggleActiveTab('1'); }}>Calculator</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="#" onClick={() => { this.toggleActiveTab('2'); }}>Logs</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="#" onClick={() => { this.toggleActiveTab('3'); }}>Solidity sources</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>  
+        
+        <Container className="App">
+          <Jumbotron fluid className="App">
+            <Row>
+              <Col>
+                <TabContent activeTab={this.state.activeTab}>
+                  <TabPane tabId="1">
+                    <Row>
+                      <Col sm="12">
+                        <h4>Tab 1 Contents</h4>
+                      </Col>
+                    </Row>
+                  </TabPane>
+                  <TabPane tabId="2">
+                    <Row>
+                      <Col sm="12">
+                        <h4>Tab 2 Contents</h4>
+                      </Col>
+                    </Row>
+                  </TabPane>
+                  <TabPane tabId="3">
+                    <Row>
+                      <Col sm="12">
+                        <h4>Tab 3 Contents</h4>
+                      </Col>
+                    </Row>
+                  </TabPane>
+                </TabContent>
+              </Col>
+            </Row>
+          </Jumbotron>
+        </Container>
+      </React.Fragment>
     );
   }
 }
