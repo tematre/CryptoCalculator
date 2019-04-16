@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 import { Calculator } from './components/calculator/Calculator.js'
 import { 
   Container, 
@@ -27,7 +25,8 @@ class App extends Component {
     this.toggleMenu = this.toggleMenu.bind(this);
     this.state = {
       isOpen: false,
-      activeTab: '1'
+      activeTab: '1',
+      
     };
 
     this.toggleActiveTab = this.toggleActiveTab.bind(this);
@@ -52,7 +51,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <NavbarBrand href="/">Crypto calculator, by TemaTre</NavbarBrand>
           <NavbarToggler onClick={this.toggleMenu} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
@@ -69,15 +68,15 @@ class App extends Component {
           </Collapse>
         </Navbar>  
         
-        <Container className="App">
-          <Jumbotron fluid className="App">
+        <Container fluid className="App">
             <Row>
-              <Col>
+              <Col xs="12">
                 <TabContent activeTab={this.state.activeTab}>
                   <TabPane tabId="1">
                     <Row>
-                      <Col sm="12">
-                        <h4>Tab 1 Contents</h4>
+                      <Col xl={{ size: '4', offset: 4 }}  xs="12"  sm={{ size: '10', offset: 1 }} lg={{ size: '8', offset: 2 }}>
+                        <p></p>
+                        <Calculator style={{ margin: 5 }} ></Calculator>
                       </Col>
                     </Row>
                   </TabPane>
@@ -98,7 +97,6 @@ class App extends Component {
                 </TabContent>
               </Col>
             </Row>
-          </Jumbotron>
         </Container>
       </React.Fragment>
     );

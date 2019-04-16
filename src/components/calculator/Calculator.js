@@ -1,7 +1,23 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-grid.css';
 import 'bootstrap/dist/css/bootstrap-reboot.css';
+import './Calculator.css';
 import React, { Component } from 'react';
+import { 
+    Container, 
+    Row, 
+    Col,  
+    FormGroup,
+    Input,
+    Button,
+    Nav,
+    NavItem,
+    NavLink,
+    Jumbotron,
+    TabContent,
+    Collapse,
+    TabPane
+  } from 'reactstrap';
 
 export class Calculator extends Component
 {
@@ -11,55 +27,56 @@ export class Calculator extends Component
     
     render() {
         return (
-                <div class="container">
-                    <div class="row">
-                        <div class="jumbotron col-12">
-                            <div class="row">
-                                <div class="col-12">
-                                        <div class="form-group">
-                                            <input class="form-control text-right" id="calcscreen" disabled="disabled" type="text"/>
-                                            
-                                        </div>
-                                        <div class="form-group"> 
-                                            <input class="form-control text-right" id="numberscreen" type="text"/>
-                                        </div>
-                                </div>
-                                
-                                <div class="col-7">    
-                                    <button class="btn btn-danger col-6 numbers border" id="ce" type="button">C</button>
-                                    <button class="btn btn-danger col-6 numbers border" id="c" type="button">&larr;</button>
-                                </div>
-                                <div class="col-5"> 
-                                    
-                                    <button class="btn btn-lg btn-light col-6 operator border" func="(" type="button">( </button>
-                                    <button class="btn btn-lg btn-light col-6 operator border" func=")" type="button">) </button>
-                                </div>
-                                <div class="col-7">
-                                    <button class="btn btn-lg btn-light col-4 numbers border" func="7" type="button">7</button>
-                                    <button class="btn btn-lg btn-light col-4 numbers border" func="8" type="button">8</button>
-                                    <button class="btn btn-lg btn-light col-4 numbers border" func="9" type="button">9</button>
-                                    <button class="btn btn-lg btn-light col-4 numbers border" func="4" type="button">4</button>
-                                    <button class="btn btn-lg btn-light col-4 numbers border" func="5" type="button">5</button>
-                                    <button class="btn btn-lg btn-light col-4 numbers border" func="6" type="button">6</button>
-                                    <button class="btn btn-lg btn-light col-4 numbers border" func="1" type="button">1</button>
-                                    <button class="btn btn-lg btn-light col-4 numbers border" func="2" type="button">2</button>
-                                    <button class="btn btn-lg btn-light col-4 numbers border" func="3" type="button">3</button>
-                                    <button class="btn btn-lg btn-light col-8 numbers border" func="0" type="button">0  </button>
-                                    <button class="btn btn-lg btn-light col-4 numbers border" func="." type="button">.</button>
-                                </div> 
-                                <div class="col-5">    
-                                    <button class="btn btn-lg btn-light col-6 operator border" func="/" type="button">/ </button>
-                                    <button class="btn btn-lg btn-light col-6 operator border" func="%" type="button">% </button>
-                                    <button class="btn btn-lg btn-light col-6 operator border" func="*" type="button">* </button>
-                                    <button class="btn btn-lg btn-light btn-lg col-6 border" id="squareroot" func="√" type="button">√</button>
-                                    <button class="btn btn-lg btn-light col-6 operator border" func="-" type="button">- </button>
-                                    <button class="btn btn-lg btn-light col-6 operator border" func="+" type="button">+ </button>
-                                    <button class="btn btn-lg btn-primary col-12" id="equals" func="=" type="button"> =</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Container callName="calc-style">
+                    <Row>
+                        <Jumbotron>
+                            <Row>
+                                <Col xs="12">
+                                    <FormGroup>
+                                        <Input disabled></Input> 
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Input ></Input> 
+                                    </FormGroup>
+                                </Col>
+                                   
+                                <Col xs="7">
+                                    <Button  size="lg" xs="6" color="danger" className="col-6 border" >C</Button>
+                                    <Button  size="lg" xs="6" color="danger" className="col-6 border" >&larr;</Button>
+                                </Col>
+
+                                <Col xs="5">
+                                    <Button size="lg" xs="4" color="light" className="col-6 border">(</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-6 border">)</Button>
+                                </Col>
+
+                                <Col xs="7">
+                                    <Button size="lg" xs="4" color="light" className="col-4 border">7</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-4 border">8</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-4 border">9</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-4 border">4</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-4 border">5</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-4 border">6</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-4 border">1</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-4 border">2</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-4 border">3</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-4 border">0</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-4 border">.</Button>
+                                </Col>
+
+                                <Col xs="5">
+                                    <Button size="lg" xs="4" color="light" className="col-6 border">/</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-6 border">%</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-6 border">*</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-6 border">√</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-6 border">-</Button>
+                                    <Button size="lg" xs="4" color="light" className="col-6 border">+</Button>
+                                    <Button size="lg" xs="4" color="primary" className="col-12 border">=</Button>
+                                </Col>
+                            </Row>
+                        </Jumbotron>
+                    </Row>
+                </Container>
         );
     }
 }
