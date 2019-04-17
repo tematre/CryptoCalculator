@@ -139,10 +139,14 @@ class Calculator extends Component
 
         return a*b;
     }
+
+    handleChange(){
+        
+    }
     
     render() {
         return (
-                <Container callName="calc-style">
+                <Container>
                     <Row>
                         <Jumbotron>
                             <Row>
@@ -151,7 +155,7 @@ class Calculator extends Component
                                         <Input value={this.state.result} disabled readOnly></Input> 
                                     </FormGroup>
                                     <FormGroup>
-                                        <Input value={this.state.calculationString} readOnly></Input> 
+                                        <Input value={this.state.calculationString} onChange={this.handleChange}></Input> 
                                     </FormGroup>
                                 </Col>
                                    

@@ -30,6 +30,9 @@ class OperationsLog extends Component {
         super(props);
     }
 
+    handleChange() {
+    }
+
     render() {
         return  (
             <Container >
@@ -41,7 +44,7 @@ class OperationsLog extends Component {
                                 <Col xs="12">
                                     <FormGroup>
                                         <Label for="logsElement">Full actions logs</Label>
-                                        <Input type="textarea" id="logsElement" value={this.props.logs.join('\n')} />
+                                        <Input type="textarea" id="logsElement" value={this.props.logs.join('\n')} onChange={this.handleChange} />
                                     </FormGroup>
                                 </Col>
                             </Row>

@@ -17,7 +17,6 @@ import {
   Collapse,
   TabPane
 } from 'reactstrap';
-import classnames from 'classnames';
 
 class App extends Component {
   
