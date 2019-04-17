@@ -52,6 +52,10 @@ export class RpnCalculatorHelper
             } else if(token === "(") {
                 operatorStack.push(token);
             } else if(token === ")") {
+                if(operatorStack.length < 1)
+                {
+                    throw "Error";
+                }
                 while(operatorStack[operatorStack.length - 1] !== "(") {
                     outputQueue += operatorStack.pop() + " ";
                 }
@@ -77,6 +81,11 @@ export class RpnCalculatorHelper
                 resultStack.push(parseFloat(postfix[i]));
             } 
             else {
+                if(resultStack.length != 2)
+                {
+                    throw "Error";
+                }
+
                 var a = resultStack.pop();
                 var b = resultStack.pop();
                 if(postfix[i] === "+") {

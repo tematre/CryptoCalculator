@@ -4,6 +4,10 @@ import 'bootstrap/dist/css/bootstrap-reboot.css';
 import './Calculator.css';
 import React, { Component } from 'react';
 import { RpnCalculatorHelper }  from '../../helpers/rpnCalculatorHelper.js'
+import {connect} from 'react-redux';
+
+import * as logActions from '../../redux/actions/logActions.js';
+
 import { 
     Container, 
     Row, 
@@ -20,19 +24,28 @@ import {
     TabPane
   } from 'reactstrap';
 
-export class Calculator extends Component
+
+const mapDispatchToProps = dispatch => ({
+    dispatchLogEntry: () => dispatch(logActions.addLogEntry("tempText"))
+})
+
+class Calculator extends Component
 {
     
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             calculationString: '',
             result: 0
         };
+
+        this.props.dispatchLogEntry("Calculator created!");
     }
 
     addChar(char) {
+        this.props.dispatchLogEntry("Key pressed:" + char);
+
         var oldString = this.state.calculationString;
 
         oldString += char;
@@ -43,6 +56,8 @@ export class Calculator extends Component
     }
 
     reset() {
+        this.props.dispatchLogEntry("Calculation expression was reseted");
+
         this.setState({
             calculationString: '',
             result: 0
@@ -50,6 +65,7 @@ export class Calculator extends Component
     }
 
     backspace() {
+        this.props.dispatchLogEntry("Backspace was pressed");
 
         var oldString = this.state.calculationString;
 
@@ -64,19 +80,35 @@ export class Calculator extends Component
     }
 
     calculate(){
+
+        this.props.dispatchLogEntry("Calculation started");
+
         var helper = new RpnCalculatorHelper();
 
         try {
             var rpnString = helper.infixToPostfix(this.state.calculationString);
+
+            this.props.dispatchLogEntry("Rpn string was got:" + rpnString);
+
             var result = helper.solvePostfix(rpnString, this);
     
+            if(result == null)
+            {
+                this.setState({
+                    result: "Incorrect input"
+                });
+                return;
+            }
+           
             this.setState({
-                result: result + '(' + rpnString + ')'
+                result: result
             });
+
+            this.props.dispatchLogEntry("Calculation ends, result: " + result );
         }
         catch{
-            var rpnString = helper.infixToPostfix(this.state.calculationString);
-            var result = helper.solvePostfix(rpnString, this);
+            
+            this.props.dispatchLogEntry("Calculation ends with errors!");
     
             this.setState({
                 result: "Incorrect input"
@@ -86,18 +118,25 @@ export class Calculator extends Component
     }
 
     sum(a, b){
+        this.props.dispatchLogEntry("Sum executed!");
         return a+b;
     }
 
     sub(a, b){
+        this.props.dispatchLogEntry("Sub executed!");
+
         return a-b;
     }
 
     div(a, b){
+        this.props.dispatchLogEntry("Div executed!");
+
         return a/b;
     }
 
     mul(a, b){
+        this.props.dispatchLogEntry("Mul executed!");
+
         return a*b;
     }
     
@@ -109,10 +148,10 @@ export class Calculator extends Component
                             <Row>
                                 <Col xs="12">
                                     <FormGroup>
-                                        <Input value={this.state.result} disabled></Input> 
+                                        <Input value={this.state.result} disabled readOnly></Input> 
                                     </FormGroup>
                                     <FormGroup>
-                                        <Input value={this.state.calculationString}></Input> 
+                                        <Input value={this.state.calculationString} readOnly></Input> 
                                     </FormGroup>
                                 </Col>
                                    
@@ -150,3 +189,5 @@ export class Calculator extends Component
         );
     }
 }
+
+export default connect(null, mapDispatchToProps)(Calculator)

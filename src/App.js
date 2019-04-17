@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Calculator } from './components/calculator/Calculator.js'
+import Calculator from './components/calculator/Calculator.js'
+import OperationsLog  from './components/operationsLog/OperationsLog.js'
+import { SmartContractView } from './components/smartContractView/SmartContractView.js'
 import { 
   Container, 
   Row, 
@@ -83,14 +85,14 @@ class App extends Component {
                   <TabPane tabId="2">
                     <Row>
                       <Col sm="12">
-                        <h4>Tab 2 Contents</h4>
+                        <OperationsLog/>
                       </Col>
                     </Row>
                   </TabPane>
                   <TabPane tabId="3">
                     <Row>
                       <Col sm="12">
-                        <h4>Tab 3 Contents</h4>
+                        <SmartContractView/>
                       </Col>
                     </Row>
                   </TabPane>
