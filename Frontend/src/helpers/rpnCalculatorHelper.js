@@ -81,11 +81,7 @@ export class RpnCalculatorHelper
                 resultStack.push(parseFloat(postfix[i]));
             } 
             else {
-                if(resultStack.length != 2)
-                {
-                    throw "Error";
-                }
-
+                
                 var a = resultStack.pop();
                 var b = resultStack.pop();
                 if(postfix[i] === "+") {
