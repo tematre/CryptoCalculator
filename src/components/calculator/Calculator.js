@@ -26,7 +26,7 @@ import {
 
 
 const mapDispatchToProps = dispatch => ({
-    dispatchLogEntry: () => dispatch(logActions.addLogEntry("tempText"))
+    dispatchLogEntry: (text) => dispatch(logActions.addLogEntry(text))
 })
 
 class Calculator extends Component

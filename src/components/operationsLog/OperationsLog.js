@@ -21,7 +21,7 @@ import {
 
 const mapStateToProps = (state) => {
     return {
-        logs: state.logs
+        logs: state.logState.logs
     }
 }
 
@@ -41,7 +41,7 @@ class OperationsLog extends Component {
                                 <Col xs="12">
                                     <FormGroup>
                                         <Label for="logsElement">Full actions logs</Label>
-                                        <Input type="textarea" id="logsElement" value={this.props.logs} />
+                                        <Input type="textarea" id="logsElement" value={this.props.logs.join('\n')} />
                                     </FormGroup>
                                 </Col>
                             </Row>

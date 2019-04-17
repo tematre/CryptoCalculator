@@ -1,8 +1,3 @@
-
-const initialState = {
-    logs: []
-  };
-
 const logReducer = (state = { logs:["Default value"] }, action) => {
     switch (action.type) {
       case 'ADD_LOG_ENTRY':
