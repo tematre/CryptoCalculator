@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap-grid.css';
 import 'bootstrap/dist/css/bootstrap-reboot.css';
 import './Calculator.css';
 import React, { Component } from 'react';
+import { RpnCalculatorHelper }  from '../../helpers/rpnCalculatorHelper.js'
 import { 
     Container, 
     Row, 
@@ -21,6 +22,7 @@ import {
 
 export class Calculator extends Component
 {
+    
     constructor() {
         super();
 
@@ -62,9 +64,41 @@ export class Calculator extends Component
     }
 
     calculate(){
-        this.setState({
-            result: 100
-        });
+        var helper = new RpnCalculatorHelper();
+
+        try {
+            var rpnString = helper.infixToPostfix(this.state.calculationString);
+            var result = helper.solvePostfix(rpnString, this);
+    
+            this.setState({
+                result: result + '(' + rpnString + ')'
+            });
+        }
+        catch{
+            var rpnString = helper.infixToPostfix(this.state.calculationString);
+            var result = helper.solvePostfix(rpnString, this);
+    
+            this.setState({
+                result: "Incorrect input"
+            });
+        }
+        
+    }
+
+    sum(a, b){
+        return a+b;
+    }
+
+    sub(a, b){
+        return a-b;
+    }
+
+    div(a, b){
+        return a/b;
+    }
+
+    mul(a, b){
+        return a*b;
     }
     
     render() {
@@ -82,15 +116,6 @@ export class Calculator extends Component
                                     </FormGroup>
                                 </Col>
                                    
-                                <Col xs="7">
-                                    <Button onClick={() => this.reset() } size="lg" xs="6" color="danger" className="col-6 border" >C</Button>
-                                    <Button onClick={() => this.backspace() } size="lg" xs="6" color="danger" className="col-6 border" >&larr;</Button>
-                                </Col>
-
-                                <Col xs="5">
-                                    <Button onClick={() => this.addChar('(') }  size="lg" xs="4" color="light" className="col-6 border">(</Button>
-                                    <Button onClick={() => this.addChar(')') }  size="lg" xs="4" color="light" className="col-6 border">)</Button>
-                                </Col>
 
                                 <Col xs="7">
                                     <Button onClick={() => this.addChar('7') }  size="lg" xs="4" color="light" className="col-4 border">7</Button>
@@ -103,17 +128,20 @@ export class Calculator extends Component
                                     <Button onClick={() => this.addChar('2') }  size="lg" xs="4" color="light" className="col-4 border">2</Button>
                                     <Button onClick={() => this.addChar('3') }  size="lg" xs="4" color="light" className="col-4 border">3</Button>
                                     <Button onClick={() => this.addChar('0') }  size="lg" xs="4" color="light" className="col-4 border">0</Button>
-                                    <Button onClick={() => this.addChar('.') }  size="lg" xs="8" color="light" className="col-8 border">.</Button>
+                                    <Button onClick={() => this.addChar('.') }  size="lg" xs="8" color="light" className="col-4 border">.</Button>
+                                    <Button onClick={() => this.calculate() }  size="lg" xs="4" color="primary" className="col-4 border">=</Button>
                                 </Col>
 
                                 <Col xs="5">
+                                    <Button onClick={() => this.reset() } size="lg" xs="6" color="danger" className="col-6 border" >C</Button>
+                                    <Button onClick={() => this.backspace() } size="lg" xs="6" color="danger" className="col-6 border" >&larr;</Button>
+                                    <Button onClick={() => this.addChar('(') }  size="lg" xs="4" color="light" className="col-6 border">(</Button>
+                                    <Button onClick={() => this.addChar(')') }  size="lg" xs="4" color="light" className="col-6 border">)</Button>
                                     <Button onClick={() => this.addChar('/') }  size="lg" xs="4" color="light" className="col-6 border">/</Button>
-                                    <Button onClick={() => this.addChar('%') }  size="lg" xs="4" color="light" className="col-6 border">%</Button>
                                     <Button onClick={() => this.addChar('*') }  size="lg" xs="4" color="light" className="col-6 border">*</Button>
-                                    <Button onClick={() => this.addChar('√') }  size="lg" xs="4" color="light" className="col-6 border">√</Button>
                                     <Button onClick={() => this.addChar('-') }  size="lg" xs="4" color="light" className="col-6 border">-</Button>
                                     <Button onClick={() => this.addChar('+') }  size="lg" xs="4" color="light" className="col-6 border">+</Button>
-                                    <Button onClick={() => this.calculate() }  size="lg" xs="4" color="primary" className="col-12 border">=</Button>
+                                    
                                 </Col>
                             </Row>
                         </Jumbotron>
