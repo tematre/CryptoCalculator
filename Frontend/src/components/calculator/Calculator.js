@@ -9,6 +9,9 @@ import {connect} from 'react-redux';
 import * as logActions from '../../redux/actions/logActions.js';
 
 import сontract from '../../crypto/TemaTreCryptoCalculatorConstants.js';
+import web3 from '../../crypto/TematTreWeb3.js';
+
+import {ContractAddress} from '../../crypto/TemaTreCryptoCalculatorConstants.js';
 
 import { 
     Container, 
@@ -25,6 +28,7 @@ import {
     Collapse,
     TabPane
   } from 'reactstrap';
+import { Contract } from 'web3-eth-contract';
 
 
 const mapDispatchToProps = dispatch => ({
@@ -84,9 +88,8 @@ class Calculator extends Component
     }
 
     async callContract() {
-        let helloFromContract = await сontract.methods.sayHello().call();
 
-        let secondHelloFromContract = сontract.methods.sayHello().call();
+        let helloFromContract = await сontract.methods.sayHello().call();
 
         console.log(helloFromContract);
     }
