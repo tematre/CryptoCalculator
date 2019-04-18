@@ -77,6 +77,24 @@ class Calculator extends Component
         this.setState({
             calculationString: oldString
         });
+
+        await this.callContract();
+    }
+
+    callContract() {
+        const contract = web3.eth.contract(contractABI);
+        const contractInstance = contract.at(this.contractAddress);
+
+        return new Promise((resolve, reject) => {
+            contractInstance.add.call(function (error, result) {
+                if (error) {
+                    console.log(error);
+                    reject();
+                } else {
+                    resolve(result);
+                }
+            });
+        });
     }
 
     calculate(){
