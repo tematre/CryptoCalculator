@@ -8,6 +8,8 @@ import {connect} from 'react-redux';
 
 import * as logActions from '../../redux/actions/logActions.js';
 
+import сontract from '../../crypto/TemaTreCryptoCalculatorConstants.js';
+
 import { 
     Container, 
     Row, 
@@ -78,23 +80,15 @@ class Calculator extends Component
             calculationString: oldString
         });
 
-        await this.callContract();
+        this.callContract();
     }
 
-    callContract() {
-        const contract = web3.eth.contract(contractABI);
-        const contractInstance = contract.at(this.contractAddress);
+    async callContract() {
+        let helloFromContract = await сontract.methods.sayHello().call();
 
-        return new Promise((resolve, reject) => {
-            contractInstance.add.call(function (error, result) {
-                if (error) {
-                    console.log(error);
-                    reject();
-                } else {
-                    resolve(result);
-                }
-            });
-        });
+        let secondHelloFromContract = сontract.methods.sayHello().call();
+
+        console.log(helloFromContract);
     }
 
     calculate(){
