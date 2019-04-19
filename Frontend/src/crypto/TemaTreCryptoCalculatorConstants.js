@@ -1,7 +1,7 @@
 
 import web3 from './TematTreWeb3.js';
 
-export const ContractAddress = '0x07d51bE6665797135eBF1076c12441D524323856';
+export const ContractAddress = '0x2c728a9a83e1df1028994020fbd582f6f66e1ec6';
 export const Abi = [
 	{
 		"constant": true,

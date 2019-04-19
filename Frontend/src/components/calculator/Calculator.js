@@ -6,12 +6,11 @@ import React, { Component } from 'react';
 import { RpnCalculatorHelper }  from '../../helpers/rpnCalculatorHelper.js'
 import {connect} from 'react-redux';
 
+import Web3 from 'web3';
+
 import * as logActions from '../../redux/actions/logActions.js';
 
-import сontract from '../../crypto/TemaTreCryptoCalculatorConstants.js';
-import web3 from '../../crypto/TematTreWeb3.js';
-
-import {ContractAddress} from '../../crypto/TemaTreCryptoCalculatorConstants.js';
+import {Abi, ContractAddress} from '../../crypto/TemaTreCryptoCalculatorConstants.js';
 
 import { 
     Container, 
@@ -89,9 +88,16 @@ class Calculator extends Component
 
     async callContract() {
 
-        let helloFromContract = await сontract.methods.sayHello().call();
+        var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/5ef5aab90c7448f1b00ce3dba64723d3"));
+        var contract = new web3.eth.Contract(Abi);
+        contract.options.address = ContractAddress;
 
-        console.log(helloFromContract);
+        console.log(contract.jsonInterface);
+        contract.methods.sayHello().call({from: '0x53eC78040df36f6758055140C4471A5269B504af', gas: 5000000}, function(error, gasAmount){
+            if(!error)
+                console.log('Method ran out of gas');
+        }).then(name => console.log(name));
+
     }
 
     calculate(){
@@ -209,4 +215,4 @@ class Calculator extends Component
     }
 }
 
-export default connect(null, mapDispatchToProps)(Calculator)
+export default connect(null, mapDispatchToProps)(Calculator); 
