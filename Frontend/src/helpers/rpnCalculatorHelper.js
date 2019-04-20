@@ -14,7 +14,7 @@ export class RpnCalculatorHelper
         return that;
     }
 
-    infixToPostfix(infix){
+    async infixToPostfix(infix){
         var outputQueue = "";
         var operatorStack = [];
         var operators = {
@@ -68,7 +68,7 @@ export class RpnCalculatorHelper
         return outputQueue;
     }
     
-    solvePostfix(postfix, operations) {
+    async solvePostfix(postfix, operations) {
         var resultStack = [];
         postfix = postfix.split(" ");
         for(var i = 0; i < postfix.length; i++) {
@@ -82,16 +82,20 @@ export class RpnCalculatorHelper
             } 
             else {
                 
-                var a = resultStack.pop();
                 var b = resultStack.pop();
+                var a = resultStack.pop();
                 if(postfix[i] === "+") {
-                    resultStack.push(operations.sum(a, b));
+                    var operationResult = await operations.sum(a, b);
+                    resultStack.push(operationResult);
                 } else if(postfix[i] === "-") {
-                    resultStack.push(operations.sub(a, b));
+                    var operationResult = await operations.sub(a, b);
+                    resultStack.push(operationResult);
                 } else if(postfix[i] === "*") {
-                    resultStack.push(operations.mul(a, b));
+                    var operationResult = await operations.mul(a, b)
+                    resultStack.push(operationResult);
                 } else if(postfix[i] === "/") {
-                    resultStack.push(operations.div(a, b));
+                    var operationResult = await operations.div(a, b)
+                    resultStack.push(operationResult);
                 }
             }
         }

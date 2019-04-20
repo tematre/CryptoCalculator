@@ -11,6 +11,7 @@ import Web3 from 'web3';
 import * as logActions from '../../redux/actions/logActions.js';
 
 import {Abi, ContractAddress} from '../../crypto/TemaTreCryptoCalculatorConstants.js';
+import TemaTreCryptoCalculatorContract from '../../crypto/TemaTreCryptoCalculatorConstants.js';
 
 import { 
     Container, 
@@ -82,36 +83,20 @@ class Calculator extends Component
         this.setState({
             calculationString: oldString
         });
-
-        this.callContract();
     }
 
-    async callContract() {
-
-        var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/5ef5aab90c7448f1b00ce3dba64723d3"));
-        var contract = new web3.eth.Contract(Abi);
-        contract.options.address = ContractAddress;
-
-        console.log(contract.jsonInterface);
-        contract.methods.sayHello().call({from: '0x53eC78040df36f6758055140C4471A5269B504af', gas: 5000000}, function(error, gasAmount){
-            if(!error)
-                console.log('Method ran out of gas');
-        }).then(name => console.log(name));
-
-    }
-
-    calculate(){
+    async calculate(){
 
         this.props.dispatchLogEntry("Calculation started");
 
         var helper = new RpnCalculatorHelper();
 
         try {
-            var rpnString = helper.infixToPostfix(this.state.calculationString);
+            var rpnString = await helper.infixToPostfix(this.state.calculationString);
 
             this.props.dispatchLogEntry("Rpn string was got:" + rpnString);
 
-            var result = helper.solvePostfix(rpnString, this);
+            var result = await helper.solvePostfix(rpnString, this);
     
             if(result == null)
             {
@@ -138,26 +123,75 @@ class Calculator extends Component
         
     }
 
-    sum(a, b){
+    async sum(a, b){
+        this.props.dispatchLogEntry("Sum started!");
+        try{
+            var contractResult = await TemaTreCryptoCalculatorContract.methods.sum(a, b).call();
+            
+            this.props.dispatchLogEntry("Sum got result from Solidity contract!");
+            return contractResult;
+        }
+        catch{
+            this.props.dispatchLogEntry("Sum can not got result from Solidity contract! Local calculation returned");
+        }
+        finally{
         this.props.dispatchLogEntry("Sum executed!");
+
+        }
         return a+b;
     }
 
-    sub(a, b){
+    async sub(a, b){
+        this.props.dispatchLogEntry("Sub started!");
+        try{
+            var contractResult = await TemaTreCryptoCalculatorContract.methods.sub(a, b).call();
+            
+            this.props.dispatchLogEntry("Sub got result from Solidity contract!");
+            return contractResult;
+        }
+        catch{
+            this.props.dispatchLogEntry("Sub can not got result from Solidity contract! Local calculation returned");
+        }
+        finally{
         this.props.dispatchLogEntry("Sub executed!");
 
+        }
         return a-b;
     }
 
-    div(a, b){
+    async div(a, b){
+        this.props.dispatchLogEntry("Div started!");
+        try{
+            var contractResult = await TemaTreCryptoCalculatorContract.methods.div(a, b).call();
+            
+            this.props.dispatchLogEntry("Div got result from Solidity contract!");
+            return contractResult;
+        }
+        catch{
+            this.props.dispatchLogEntry("Div can not got result from Solidity contract! Local calculation returned");
+        }
+        finally{
         this.props.dispatchLogEntry("Div executed!");
 
+        }
         return a/b;
     }
 
-    mul(a, b){
+    async mul(a, b){
+        this.props.dispatchLogEntry("Mul started!");
+        try{
+            var contractResult = await TemaTreCryptoCalculatorContract.methods.mul(a, b).call();
+            
+            this.props.dispatchLogEntry("Mul got result from Solidity contract!");
+            return contractResult;
+        }
+        catch{
+            this.props.dispatchLogEntry("Mul can not got result from Solidity contract! Local calculation returned");
+        }
+        finally{
         this.props.dispatchLogEntry("Mul executed!");
 
+        }
         return a*b;
     }
 

@@ -44,7 +44,7 @@ class OperationsLog extends Component {
                                 <Col xs="12">
                                     <FormGroup>
                                         <Label for="logsElement">Full actions logs</Label>
-                                        <Input type="textarea" id="logsElement" value={this.props.logs.join('\n')} onChange={this.handleChange} />
+                                        <Input type="textarea" id="logsElement" value={this.props.logs.join('\n')} style={{height: 500+'px'}}  onChange={this.handleChange} />
                                     </FormGroup>
                                 </Col>
                             </Row>

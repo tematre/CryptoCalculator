@@ -5,8 +5,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import Web3 from 'web3';
-import Web3Provider from 'react-web3-provider';
 
 import rootReducer from './redux/reducers';
 

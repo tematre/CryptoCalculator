@@ -17,9 +17,10 @@ import {
     Label,
     TabPane
   } from 'reactstrap';
-
+import { ContractText } from '../../crypto/TemaTreCryptoCalculatorConstants.js'
 
 export class SmartContractView extends Component {
+    handleChange(){}
     render() {
         return  (
             <Container >
@@ -31,7 +32,7 @@ export class SmartContractView extends Component {
                                 <Col xs="12">
                                     <FormGroup>
                                         <Label for="textElement">Full text of Solidity Smart Contract</Label>
-                                        <Input type="textarea" id="textElement" />
+                                        <Input type="textarea" id="textElement" style={{height: 500+'px'}} value={ContractText} onChange={this.handleChange} />
                                     </FormGroup>
                                 </Col>
                             </Row>
